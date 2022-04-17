@@ -1,0 +1,80 @@
+:root {
+  --border: solid 1px #ccc;
+}
+
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border);
+}
+
+.logo__wrapper {
+  width: 70%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header__link {
+  text-decoration: none;
+}
+
+.header__logo {
+  color: #f85555;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.header__navbar {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: var(--border);
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.button>i {
+  color: #888;
+  font-size: 24px;
+  transition: all 300ms ease;
+}
+
+.button:hover>i {
+  color: #f85555;
+}

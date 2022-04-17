@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import {
   Home,
-  Shop,
   ProductDetail,
   Purchases
 } from './pages'
@@ -62,8 +61,7 @@ function App() {
         <section className='ecommerce__main'>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/shop' element={<Shop />} />
-            <Route path='/productdetail' element={<ProductDetail />} />
+            <Route path='/productdetail/:id' element={<ProductDetail />} />
             <Route path='/purchases' element={<Purchases />} />
           </Routes>
         </section>

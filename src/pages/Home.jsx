@@ -17,14 +17,13 @@ import { Link } from 'react-router-dom';
 const Home = () => {
 
   const [headLine, setHeadLine] = useState('');
-
   const dispatch = useDispatch();
   const products = useSelector(state => state.products);
   const categories = useSelector(state => state.categories);
 
   useEffect(() => {
     dispatch(getProductsThunk());
-    dispatch(setCategoriesThunk())
+    dispatch(setCategoriesThunk());
   }, [dispatch]);
 
   const submitByQuery = (event) => {
@@ -37,15 +36,22 @@ const Home = () => {
     <section className={HomeStyles.home_page}>
 
       <aside className={HomeStyles.home__aside}>
-        <section>
-          <ul>
+        <section className={HomeStyles.home__categories}>
+          <div className={HomeStyles.categories__title}>
+            <h2>Categories</h2>
+          </div>
+          <ul className={HomeStyles.categories__list}>
             <ButtonBase
+              ButtonWrapperClassName={HomeStyles.aside__buttonwrapper}
+              ButtonClassName={HomeStyles.aside__button}
               ButtonOnClick={() => dispatch(getProductsThunk())}
               ButtonText={'All products'}
             />
             {
               categories.map(categorie => (
                 <ButtonBase
+                  ButtonWrapperClassName={HomeStyles.aside__buttonwrapper}
+                  ButtonClassName={HomeStyles.aside__button}
                   key={categorie.id}
                   ButtonOnClick={() => dispatch(filterCategoryByIdThunk(categorie.id))}
                   ButtonText={categorie.name}
@@ -83,7 +89,7 @@ const Home = () => {
           {
             products.length > 0 ? (
               products.map(product => (
-                <Link to='/shop'
+                <Link to={`/productDetail/${product.id}`}
                   key={product.id}
                   className={HomeStyles.product__card}
                 >

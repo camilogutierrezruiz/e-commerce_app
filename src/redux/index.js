@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   products: [],
   isLoading: false,
   categories: [],
-}
+};
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -13,23 +13,23 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: action.payload
-      }
+      };
 
     case actions.getProducts:
       return {
         ...state,
         products: action.payload
-      }
+      };
 
     case actions.setCategories:
       return {
         ...state,
         categories: action.payload
-      }
+      };
 
     default:
       return state;
-  }
-}
+  };
+};
 
 export default reducer;

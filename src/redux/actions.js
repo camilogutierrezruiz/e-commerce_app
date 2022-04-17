@@ -3,8 +3,10 @@ import axios from "axios";
 export const actions = {
   setIsLoading: 'SET_IS_LOADING',
   getProducts: 'GET_PRODUCTS',
-  setCategories: 'SET_CATEGORIES'
+  setCategories: 'SET_CATEGORIES',
 };
+
+// * ACTIONS
 
 export const setIsLoading = (isLoading) => ({
   type: actions.setIsLoading,
@@ -20,6 +22,8 @@ export const setCategories = (categories) => ({
   type: actions.setCategories,
   payload: categories
 });
+
+// * THUNK
 
 export const getProductsThunk = () => {
   return dispatch => {

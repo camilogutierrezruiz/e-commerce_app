@@ -1,5 +1,4 @@
 import LoginForm from '../styles/userlogin.module.css';
-import ButtonBase from './ButtonBase';
 
 const CartModal = () => {
   return (

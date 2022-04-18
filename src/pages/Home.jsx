@@ -1,4 +1,4 @@
-import HomeStyles from '../styles/home.module.css'
+import HomeStyles from '../styles/home.module.css';
 import { ButtonBase } from '../components';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +20,8 @@ const Home = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.products);
   const categories = useSelector(state => state.categories);
+
+  console.log(products);
 
   useEffect(() => {
     dispatch(getProductsThunk());

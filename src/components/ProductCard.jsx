@@ -6,8 +6,13 @@ const ProductCard = ({ Product }) => {
     <section className={ProductCardStyles.product__wrapper}>
       <div className={ProductCardStyles.img__wrapper}>
         <img
-          className={ProductCardStyles.product__img}
-          src={Product.productImgs}
+          className={ProductCardStyles.product__img_over}
+          src={Product.productImgs[0]}
+          alt={`${Product.title}`}
+        />
+        <img
+          className={ProductCardStyles.product__img_back}
+          src={Product.productImgs[2]}
           alt={`${Product.title}`}
         />
       </div>

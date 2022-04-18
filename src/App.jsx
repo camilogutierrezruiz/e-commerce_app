@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ButtonBase } from './components';
 import { getProductsThunk } from './redux/actions';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
             <Route path='/purchases' element={<Purchases />} />
           </Routes>
         </section>
+        <Footer />
       </HashRouter>
     </section>
   );

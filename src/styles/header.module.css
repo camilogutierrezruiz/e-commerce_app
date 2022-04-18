@@ -69,8 +69,26 @@
   cursor: pointer;
 }
 
+.button__open {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 .button>i {
   color: #888;
+  font-size: 24px;
+  transition: all 300ms ease;
+}
+
+.button__open>i {
+  color: #f85555;
   font-size: 24px;
   transition: all 300ms ease;
 }

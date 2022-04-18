@@ -48,6 +48,7 @@ body::-webkit-scrollbar-thumb {
   height: auto;
   padding: 2rem;
   margin-top: 100px;
+  overflow: hidden;
 }
 
 .footer__wrapper {

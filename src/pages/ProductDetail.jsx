@@ -20,7 +20,6 @@ const ProductDetail = () => {
   }, [dispatch]);
 
   const productDetail = products.find(productItem => productItem.id === Number(id));
-  console.log(productDetail);
 
   useEffect(() => {
     axios

@@ -18,11 +18,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ButtonBase } from './components';
 import { getProductsThunk } from './redux/actions';
 import Footer from './components/Footer';
+import UserLogin from './components/UserLogin';
+import { useState } from 'react';
+import CartModal from './components/CartModal';
 
 function App() {
 
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.isLoading);
+  const [showUserLogin, setShowUserLogin] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   return (
     <section className="App">
@@ -41,9 +46,14 @@ function App() {
           <nav className={HeaderStyles.header__navbar}>
             <section className={HeaderStyles.nav__button}>
               <ButtonBase
-                ButtonClassName={HeaderStyles.button}
+                ButtonClassName={showUserLogin ? HeaderStyles.button__open : HeaderStyles.button}
                 ButtonText={<i className="fa-solid fa-user"></i>}
+                ButtonOnClick={() => {
+                  setShowUserLogin(!showUserLogin)
+                  setShowCart(false)
+                }}
               />
+              {showUserLogin && <UserLogin />}
             </section>
             <section className={HeaderStyles.nav__button}>
               <ButtonBase
@@ -53,9 +63,14 @@ function App() {
             </section>
             <section className={HeaderStyles.nav__button}>
               <ButtonBase
-                ButtonClassName={HeaderStyles.button}
+                ButtonClassName={showCart ? HeaderStyles.button__open : HeaderStyles.button}
                 ButtonText={<i className="fa-solid fa-cart-shopping"></i>}
+                ButtonOnClick={() => {
+                  setShowCart(!showCart)
+                  setShowUserLogin(false)
+                }}
               />
+              {showCart && <CartModal />}
             </section>
           </nav>
         </header>

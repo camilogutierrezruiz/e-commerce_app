@@ -21,8 +21,6 @@ const Home = () => {
   const products = useSelector(state => state.products);
   const categories = useSelector(state => state.categories);
 
-  console.log(products);
-
   useEffect(() => {
     dispatch(getProductsThunk());
     dispatch(setCategoriesThunk());

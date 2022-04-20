@@ -1,11 +1,11 @@
 .modal__wrapper {
   background-color: #fff;
   width: 300px;
-  height: 400px;
+  height: auto;
   position: absolute;
   top: 100%;
   z-index: 100;
-  box-shadow: 0 5px 15px #0002;
+  box-shadow: 0 8px 15px #0002;
 }
 
 .cart__modal {
@@ -15,5 +15,5 @@
   position: absolute;
   top: 100%;
   right: 0;
-  box-shadow: 0 5px 15px #0002;
+  box-shadow: -8px 0 15px #0001;
 }

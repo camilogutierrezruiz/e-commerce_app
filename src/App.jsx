@@ -53,7 +53,7 @@ function App() {
                   setShowCart(false)
                 }}
               />
-              {showUserLogin && <UserLogin />}
+              {showUserLogin && <UserLogin ShowUserLogin={setShowUserLogin} />}
             </section>
             <section className={HeaderStyles.nav__button}>
               <ButtonBase

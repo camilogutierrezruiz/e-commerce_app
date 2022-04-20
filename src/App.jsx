@@ -29,6 +29,15 @@ function App() {
   const [showUserLogin, setShowUserLogin] = useState(false);
   const [showCart, setShowCart] = useState(false);
 
+  const cartFuntionWhitOutSignIn = () => {
+    if (localStorage.getItem('token')) {
+      setShowCart(!showCart)
+      setShowUserLogin(false)
+    } else {
+      setShowUserLogin(!showUserLogin);
+    };
+  };
+
   return (
     <section className="App">
       <HashRouter>
@@ -39,8 +48,7 @@ function App() {
               onClick={() => dispatch(getProductsThunk())}
               to='/'
               className={HeaderStyles.header__link}
-            >
-              <h1 className={HeaderStyles.header__logo}>e-commerce</h1>
+            ><h1 className={HeaderStyles.header__logo}>e-commerce</h1>
             </Link>
           </section>
           <nav className={HeaderStyles.header__navbar}>
@@ -65,10 +73,7 @@ function App() {
               <ButtonBase
                 ButtonClassName={showCart ? HeaderStyles.button__open : HeaderStyles.button}
                 ButtonText={<i className="fa-solid fa-cart-shopping"></i>}
-                ButtonOnClick={() => {
-                  setShowCart(!showCart)
-                  setShowUserLogin(false)
-                }}
+                ButtonOnClick={cartFuntionWhitOutSignIn}
               />
               {showCart && <CartModal />}
             </section>

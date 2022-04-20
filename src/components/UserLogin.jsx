@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginThunk } from '../redux/actions';
+import { loginThunk, setIsLoading } from '../redux/actions';
 import LoginForm from '../styles/userlogin.module.css';
 import ButtonBase from './ButtonBase';
 
 const UserLogin = ({ ShowUserLogin }) => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userFirstName, setUserFirstName] = useState('');
-  const [error, setError] = useState('');
   const dispatch = useDispatch();
 
-  console.log(userFirstName);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const submit = (event) => {
     event.preventDefault();
@@ -24,67 +22,79 @@ const UserLogin = ({ ShowUserLogin }) => {
       .then(response => {
         // console.log(response.data.data.user);
         localStorage.setItem('token', response.data.data.token);
-        setUserFirstName(response.data.data.user.firstName);
+        localStorage.setItem('userName', `${response.data.data.user.firstName} ${response.data.data.user.lastName}`);
         setEmail('');
         setPassword('');
         ShowUserLogin(false);
         setError('');
       })
       .catch(error => {
-        setError(error.response.data.message);
+        setError('Invalid value. Please try again.');
       })
   };
 
   return (
-    <section className={LoginForm.modal__wrapper}>
+    <section className={LoginForm.login__wrapper}>
       {
-        localStorage.getItem('token')
-          ? <section>
-            <div>
-              <div><i className="fa-solid fa-circle-user"></i></div>
-              <div>{userFirstName}</div>
+        localStorage.getItem('token') ? (
+          <section className={LoginForm.logout__view}>
+            <div className={LoginForm.logout__userinfo}>
+              <div className={LoginForm.logout__iconimg}><i className="fa-solid fa-circle-user"></i></div>
+              <div className={LoginForm.logout__username}><h3>{localStorage.getItem('userName')}</h3></div>
             </div>
             <ButtonBase
+              ButtonWrapperClassName={LoginForm.logout__buttonwrapper}
+              ButtonClassName={LoginForm.logout__logoutbutton}
+              ButtonType='button'
               ButtonOnClick={() => {
-                localStorage.setItem('token', '');
-                ShowUserLogin(false);
+                dispatch(setIsLoading(true));
+                setTimeout(() => {
+                  localStorage.setItem('token', '');
+                  localStorage.setItem('userName', '');
+                  ShowUserLogin(false);
+                  dispatch(setIsLoading(false));
+                }, 300);
               }}
               ButtonText={'Log Out'}
             />
           </section>
-          : (
-            <>
-              <section>
-                <p>john@gmail.com</p>
-                <p>john1234</p>
-              </section>
-              <form onSubmit={submit}>
-                <section>
-                  <input
-                    placeholder='email'
-                    type="email"
-                    onChange={event => setEmail(event.target.value)}
-                    value={email}
-                  />
-                </section>
-                <section>
-                  <input
-                    placeholder='password'
-                    type="password"
-                    onChange={event => setPassword(event.target.value)}
-                    value={password}
-                  />
-                </section>
-                <ButtonBase
-                  ButtonType={'submit'}
-                  ButtonText={'Sign in'}
+        ) : (
+          <section className={LoginForm.logout__view}>
+            <section className={LoginForm.info__login}>
+              <p>john@gmail.com</p>
+              <p>john1234</p>
+            </section>
+            <form onSubmit={submit} className={LoginForm.form__wrapper}>
+              <section className={LoginForm.input__wrapper}>
+                <input
+                  className={LoginForm.input}
+                  placeholder='email'
+                  type="email"
+                  onChange={event => setEmail(event.target.value)}
+                  value={email}
                 />
-                <section>
-                  <p>{error}</p>
-                </section>
-              </form>
-            </>
-          )
+              </section>
+              <section className={LoginForm.input__wrapper}>
+                <input
+                  className={LoginForm.input}
+                  placeholder='password'
+                  type="password"
+                  onChange={event => setPassword(event.target.value)}
+                  value={password}
+                />
+              </section>
+              <section className={LoginForm.error__message}>
+                <p>{error}</p>
+              </section>
+              <ButtonBase
+                ButtonWrapperClassName={LoginForm.logout__buttonwrapper}
+                ButtonClassName={LoginForm.logout__logoutbutton}
+                ButtonType={'submit'}
+                ButtonText={'Sign in'}
+              />
+            </form>
+          </section>
+        )
       }
     </section>
   );

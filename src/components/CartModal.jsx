@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { delCartProductThunk, getCartProductsThunk } from "../redux/actions";
@@ -8,30 +8,13 @@ import ButtonBase from "./ButtonBase";
 const CartModal = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cartProducts);
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
 
-
-
-  // const getTotalProducts = () => {
-
-  //   let totalByProduct = [];
-  //   let totalArray = 0;
-
-  //   for (let i = 0; i < cartProducts.length; i++) {
-  //     totalByProduct[i] = cartProducts[i]?.price * cartProducts[i]?.productsInCart.quantity;
-  //   }
-
-  //   for (let i = 0; i < totalByProduct.length; i++) {
-  //     totalArray += totalByProduct[i];
-  //   };
-
-  //   return setTotal(totalArray)
-  // };
 
 
   useEffect(() => {
     dispatch(getCartProductsThunk());
-  }, [dispatch, total]);
+  }, [dispatch]);
 
   return (
     <section className={LoginForm.cart__modal}>
@@ -85,7 +68,7 @@ const CartModal = () => {
           </div>
           <div className={LoginForm.total__price}>
             <h2>
-              {`$${total}`}
+              {`$${'0'}`}
             </h2>
           </div>
         </div>

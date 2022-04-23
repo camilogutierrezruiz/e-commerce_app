@@ -145,7 +145,6 @@ export const getCartProductsThunk = () => {
 
 export const delCartProductThunk = (id) => {
   return dispatch => {
-    console.log(id);
     dispatch(setIsLoading(true));
     return axios
       .post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())

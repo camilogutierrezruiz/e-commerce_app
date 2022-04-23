@@ -10,27 +10,28 @@ const CartModal = () => {
   const cartProducts = useSelector((state) => state.cartProducts);
   const [total, setTotal] = useState(0);
 
-  let totalByProduct = [];
-  let totalArray = 0;
 
-  const getTotalProducts = () => {
-    for (let i = 0; i < cartProducts.length; i++) {
-      totalByProduct[i] = cartProducts[i]?.price * cartProducts[i]?.productsInCart.quantity;
-    }
 
-    for (let i = 0; i < totalByProduct.length; i++) {
-      totalArray += totalByProduct[i];
-    };
+  // const getTotalProducts = () => {
 
-    return setTotal(totalArray)
-  };
+  //   let totalByProduct = [];
+  //   let totalArray = 0;
+
+  //   for (let i = 0; i < cartProducts.length; i++) {
+  //     totalByProduct[i] = cartProducts[i]?.price * cartProducts[i]?.productsInCart.quantity;
+  //   }
+
+  //   for (let i = 0; i < totalByProduct.length; i++) {
+  //     totalArray += totalByProduct[i];
+  //   };
+
+  //   return setTotal(totalArray)
+  // };
 
 
   useEffect(() => {
     dispatch(getCartProductsThunk());
-    getTotalProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, total, getTotalProducts()]);
+  }, [dispatch, total]);
 
   return (
     <section className={LoginForm.cart__modal}>

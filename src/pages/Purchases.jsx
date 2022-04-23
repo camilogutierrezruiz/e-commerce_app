@@ -18,7 +18,7 @@ const Purchases = () => {
           <section>
             <h1>{purchase.createdAt}</h1>
             {purchase?.cart?.products.map((product) => (
-              <p key={purchase?.cart?.products?.id}>{product.title}</p>
+              <p key={purchase?.cart?.products?.description}>{product.title}</p>
             ))}
           </section>
         </li>

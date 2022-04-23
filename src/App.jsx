@@ -58,12 +58,25 @@ function App() {
               {showUserLogin && <UserLogin ShowUserLogin={setShowUserLogin} />}
             </section>
             <section className={HeaderStyles.nav__button}>
-              <Link to={"/purchases"}>
-                <ButtonBase
-                  ButtonClassName={HeaderStyles.button}
-                  ButtonText={<i className="fa-solid fa-box-archive"></i>}
-                />
-              </Link>
+              {
+                localStorage.getItem('token') ? (
+                  <Link to={"/purchases"}>
+                    <ButtonBase
+                      ButtonClassName={HeaderStyles.button}
+                      ButtonText={<i className="fa-solid fa-box-archive"></i>}
+                    />
+                  </Link>
+                ) : (
+                  <ButtonBase
+                    ButtonOnClick={() => {
+                      console.log('funcionando');
+                      setShowUserLogin(!showUserLogin)
+                    }}
+                    ButtonClassName={HeaderStyles.button}
+                    ButtonText={<i className="fa-solid fa-box-archive"></i>}
+                  />
+                )
+              }
             </section>
             <section className={HeaderStyles.nav__button}>
               <ButtonBase

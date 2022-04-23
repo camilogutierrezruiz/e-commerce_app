@@ -115,12 +115,42 @@ export const loginThunk = (credentials) => {
   };
 };
 
+export const setCartProductsThunk = (product) => {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    return axios
+      .post('https://ecommerce-api-react.herokuapp.com/api/v1/cart', product, getConfig())
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+};
+
 export const getCartProductsThunk = () => {
   return (dispatch) => {
+    dispatch(setIsLoading(true));
     return axios
       .get(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, getConfig())
       .then((response) => {
         dispatch(getCartProducts(response.data.data.cart.products));
+      })
+      .catch(error => {
+        console.log(error.data);
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+};
+
+export const delCartProductThunk = (id) => {
+  return dispatch => {
+    console.log(id);
+    dispatch(setIsLoading(true));
+    return axios
+      .post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())
+      .finally(() => {
+        dispatch(setIsLoading(false));
       });
   };
 };

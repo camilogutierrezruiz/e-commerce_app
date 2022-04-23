@@ -16,8 +16,8 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
 
-  const [headLine, setHeadLine] = useState('');
   const dispatch = useDispatch();
+  const [headLine, setHeadLine] = useState('');
   const products = useSelector(state => state.products);
   const categories = useSelector(state => state.categories);
 

@@ -151,8 +151,17 @@
   background-color: #fff;
   width: 350px;
   height: 100vh;
+  padding: 2rem;
   position: absolute;
   top: 102%;
   right: 0;
   box-shadow: -8px 0 15px #0001;
+}
+
+.product__card {
+  list-style: none;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border: var(--border);
 }

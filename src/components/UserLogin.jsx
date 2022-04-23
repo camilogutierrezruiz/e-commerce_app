@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { loginThunk, setIsLoading } from '../redux/actions';
 import LoginForm from '../styles/userlogin.module.css';
 import ButtonBase from './ButtonBase';
@@ -7,6 +8,7 @@ import ButtonBase from './ButtonBase';
 const UserLogin = ({ ShowUserLogin }) => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,6 +54,7 @@ const UserLogin = ({ ShowUserLogin }) => {
                   localStorage.setItem('token', '');
                   localStorage.setItem('userName', '');
                   ShowUserLogin(false);
+                  navigate('/');
                   dispatch(setIsLoading(false));
                 }, 300);
               }}

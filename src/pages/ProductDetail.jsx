@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { ButtonBase, ProductCard } from '../components';
-import { getProductsThunk } from '../redux/actions';
+import { getProductsThunk, setCartProductsThunk } from '../redux/actions';
 
 const ProductDetail = () => {
 
@@ -14,6 +14,11 @@ const ProductDetail = () => {
   const products = useSelector(state => state.products);
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [productImg, setproductImg] = useState('');
+  const [quantity, setQuantity] = useState(1);
+
+  if (quantity < 1) {
+    setQuantity(1);
+  };
 
   useEffect(() => {
     dispatch(getProductsThunk());
@@ -31,6 +36,14 @@ const ProductDetail = () => {
   }, [productDetail?.category?.id, productDetail?.productImgs]);
 
   const similarProducts = productsFiltered.filter(products => products.id !== productDetail.id);
+
+  const addProductToCart = () => {
+    const productToCart = {
+      id,
+      quantity
+    };
+    dispatch(setCartProductsThunk(productToCart));
+  };
 
   return (
     <div className={ProductDetailStyles.wrapper}>
@@ -73,7 +86,23 @@ const ProductDetail = () => {
             <p className={ProductDetailStyles.paragraph}>{productDetail?.description}</p>
           </div>
           <h2 className={ProductDetailStyles.price}>{`$${productDetail?.price}`}</h2>
+          <section>
+            <ButtonBase
+              ButtonOnClick={() => {
+                setQuantity(quantity - 1);
+              }}
+              ButtonText={'-'}
+            />
+            <div><p>{quantity}</p></div>
+            <ButtonBase
+              ButtonOnClick={() => {
+                setQuantity(quantity + 1);
+              }}
+              ButtonText={'+'}
+            />
+          </section>
           <ButtonBase
+            ButtonOnClick={addProductToCart}
             ButtonWrapperClassName={ProductDetailStyles.description__cta_wrapper}
             ButtonClassName={ProductDetailStyles.description__cta}
             ButtonText={'Add to cart'}

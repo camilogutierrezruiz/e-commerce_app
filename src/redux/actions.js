@@ -1,10 +1,11 @@
 import axios from "axios";
 
 export const actions = {
-  setIsLoading: 'SET_IS_LOADING',
-  getProducts: 'GET_PRODUCTS',
-  setCategories: 'SET_CATEGORIES',
-  getCart: 'GET_CART',
+  setIsLoading: "SET_IS_LOADING",
+  getProducts: "GET_PRODUCTS",
+  setCategories: "SET_CATEGORIES",
+  getCartProducts: "GET_CART_PRODUCTS",
+  getPurchases: "GET_PURCHASES"
 };
 
 // * ACTIONS
@@ -24,29 +25,31 @@ export const setCategories = (categories) => ({
   payload: categories
 });
 
-export const getCart = (cart) => ({
-  type: actions.getCart,
-  payload: cart
+export const getCartProducts = (cartProducts) => ({
+  type: actions.getCartProducts,
+  payload: cartProducts
 });
 
-// * TOKEN AUTORIZATION
+export const getPurchases = (purchases) => ({
+  type: actions.getPurchases,
+  payload: purchases
+});
+
+// GET TOKEN
 
 const getConfig = () => ({
-  headers: { Autorization: `Bearer ${localStorage.getItem('token')}` }
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
 });
-
-console.log(getConfig());
-
 
 // * THUNK
 
 export const getProductsThunk = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(setIsLoading(true));
     return axios
-      .get('https://ecommerce-api-react.herokuapp.com/api/v1/products')
-      .then(response => {
-        dispatch(getProducts(response.data.data.products))
+      .get("https://ecommerce-api-react.herokuapp.com/api/v1/products")
+      .then((response) => {
+        dispatch(getProducts(response.data.data.products));
       })
       .finally(() => {
         dispatch(setIsLoading(false));
@@ -55,12 +58,14 @@ export const getProductsThunk = () => {
 };
 
 export const setCategoriesThunk = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(setIsLoading(true));
     return axios
-      .get(`https://ecommerce-api-react.herokuapp.com/api/v1/products/categories`)
-      .then(response => {
-        dispatch(setCategories(response.data.data.categories))
+      .get(
+        `https://ecommerce-api-react.herokuapp.com/api/v1/products/categories`
+      )
+      .then((response) => {
+        dispatch(setCategories(response.data.data.categories));
       })
       .finally(() => {
         dispatch(setIsLoading(false));
@@ -69,11 +74,13 @@ export const setCategoriesThunk = () => {
 };
 
 export const filterCategoryByIdThunk = (id) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(setIsLoading(true));
     return axios
-      .get(`https://ecommerce-api-react.herokuapp.com/api/v1/products?category=${id}`)
-      .then(response => {
+      .get(
+        `https://ecommerce-api-react.herokuapp.com/api/v1/products?category=${id}`
+      )
+      .then((response) => {
         dispatch(getProducts(response.data.data.products));
       })
       .finally(() => dispatch(setIsLoading(false)));
@@ -81,11 +88,13 @@ export const filterCategoryByIdThunk = (id) => {
 };
 
 export const filterCategoryByQueryThunk = (healine) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(setIsLoading(true));
     return axios
-      .get(`https://ecommerce-api-react.herokuapp.com/api/v1/products?query=${healine}`)
-      .then(response => {
+      .get(
+        `https://ecommerce-api-react.herokuapp.com/api/v1/products?query=${healine}`
+      )
+      .then((response) => {
         dispatch(getProducts(response.data.data.products));
       })
       .finally(() => {
@@ -95,21 +104,67 @@ export const filterCategoryByQueryThunk = (healine) => {
 };
 
 export const loginThunk = (credentials) => {
+  return (dispatch) => {
+    dispatch(setIsLoading(true));
+    return axios
+      .post(
+        `https://ecommerce-api-react.herokuapp.com/api/v1/users/login`,
+        credentials
+      )
+      .finally(() => dispatch(setIsLoading(false)));
+  };
+};
+
+export const setCartProductsThunk = (product) => {
   return dispatch => {
     dispatch(setIsLoading(true));
     return axios
-      .post(`https://ecommerce-api-react.herokuapp.com/api/v1/users/login`, credentials)
-      .finally(() => dispatch(setIsLoading(false)));
-  }
-}
+      .post('https://ecommerce-api-react.herokuapp.com/api/v1/cart', product, getConfig())
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+};
 
-export const getCartThunk = () => {
-  return dispatch => {
+export const getCartProductsThunk = () => {
+  return (dispatch) => {
+    dispatch(setIsLoading(true));
     return axios
       .get(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, getConfig())
-      .then(response => {
-        dispatch(setIsLoading(true));
-        dispatch(getCart(response.data.data.cart.products));
+      .then((response) => {
+        dispatch(getCartProducts(response.data.data.cart.products));
+      })
+      .catch(error => {
+        console.log(error.data);
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+};
+
+export const delCartProductThunk = (id) => {
+  return dispatch => {
+    console.log(id);
+    dispatch(setIsLoading(true));
+    return axios
+      .post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+};
+
+export const getPurchasesThunk = () => {
+  return (dispatch) => {
+    dispatch(setIsLoading(true));
+    return axios
+      .get(
+        `https://ecommerce-api-react.herokuapp.com/api/v1/purchases`,
+        getConfig()
+      )
+      .then((response) => {
+        dispatch(getPurchases(response.data.data.purchases));
       })
       .finally(() => {
         dispatch(setIsLoading(false));

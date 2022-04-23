@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { delCartProductThunk, getCartProductsThunk } from "../redux/actions";
+import { delCartProductThunk, getCartProductsThunk, setPurchaseThunk } from "../redux/actions";
 import LoginForm from "../styles/userlogin.module.css";
 import ButtonBase from "./ButtonBase";
 
@@ -27,6 +27,10 @@ const CartModal = () => {
 
     setTotal(totalArray);
   }, [cartProducts]);
+
+  const delCartProduct = (id) => {
+    dispatch(delCartProductThunk(id));
+  };
 
   return (
     <section className={LoginForm.cart__modal}>
@@ -62,8 +66,7 @@ const CartModal = () => {
                 ButtonWrapperClassName={LoginForm.cardbutton__wrapper}
                 ButtonClassName={LoginForm.cardbutton__button}
                 ButtonOnClick={() => {
-                  dispatch(delCartProductThunk(cartProduct.id));
-                  dispatch(getCartProductsThunk());
+                  delCartProduct(cartProduct.id);
                 }}
                 ButtonText={<i className="fa-solid fa-trash"></i>}
               />
@@ -85,6 +88,9 @@ const CartModal = () => {
           </div>
         </div>
         <ButtonBase
+          ButtonOnClick={() => {
+            dispatch(setPurchaseThunk());
+          }}
           ButtonWrapperClassName={LoginForm.total__buttonwrapper}
           ButtonClassName={LoginForm.total__button}
           ButtonText={'Checkout'}

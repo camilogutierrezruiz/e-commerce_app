@@ -120,6 +120,9 @@ export const setCartProductsThunk = (product) => {
     dispatch(setIsLoading(true));
     return axios
       .post('https://ecommerce-api-react.herokuapp.com/api/v1/cart', product, getConfig())
+      .then(() => {
+        dispatch(getCartProductsThunk());
+      })
       .finally(() => {
         dispatch(setIsLoading(false));
       });
@@ -148,6 +151,9 @@ export const delCartProductThunk = (id) => {
     dispatch(setIsLoading(true));
     return axios
       .post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())
+      .then(() => {
+        dispatch(getCartProductsThunk());
+      })
       .finally(() => {
         dispatch(setIsLoading(false));
       });
@@ -164,6 +170,21 @@ export const getPurchasesThunk = () => {
       )
       .then((response) => {
         dispatch(getPurchases(response.data.data.purchases));
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+};
+
+export const setPurchaseThunk = () => {
+  return dispatch => {
+    dispatch(setIsLoading(true));
+    console.log('funcionando');
+    return axios
+      .post(`https://ecommerce-api-react.herokuapp.com/api/v1/purchases`, getConfig())
+      .then(() => {
+        dispatch(getCartProductsThunk());
       })
       .finally(() => {
         dispatch(setIsLoading(false));

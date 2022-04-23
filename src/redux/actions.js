@@ -4,6 +4,7 @@ export const actions = {
   setIsLoading: 'SET_IS_LOADING',
   getProducts: 'GET_PRODUCTS',
   setCategories: 'SET_CATEGORIES',
+  getCart: 'GET_CART',
 };
 
 // * ACTIONS
@@ -22,6 +23,20 @@ export const setCategories = (categories) => ({
   type: actions.setCategories,
   payload: categories
 });
+
+export const getCart = (cart) => ({
+  type: actions.getCart,
+  payload: cart
+});
+
+// * TOKEN AUTORIZATION
+
+const getConfig = () => ({
+  headers: { Autorization: `Bearer ${localStorage.getItem('token')}` }
+});
+
+console.log(getConfig());
+
 
 // * THUNK
 
@@ -87,3 +102,17 @@ export const loginThunk = (credentials) => {
       .finally(() => dispatch(setIsLoading(false)));
   }
 }
+
+export const getCartThunk = () => {
+  return dispatch => {
+    return axios
+      .get(`https://ecommerce-api-react.herokuapp.com/api/v1/cart`, getConfig())
+      .then(response => {
+        dispatch(setIsLoading(true));
+        dispatch(getCart(response.data.data.cart.products));
+      })
+      .finally(() => {
+        dispatch(setIsLoading(false));
+      });
+  };
+};

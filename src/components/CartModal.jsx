@@ -29,7 +29,8 @@ const CartModal = () => {
   useEffect(() => {
     dispatch(getCartProductsThunk());
     getTotalProducts();
-  }, [dispatch, total]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, total, getTotalProducts()]);
 
   return (
     <section className={LoginForm.cart__modal}>

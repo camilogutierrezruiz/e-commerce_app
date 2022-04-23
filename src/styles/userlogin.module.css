@@ -171,18 +171,6 @@
   align-items: center;
 }
 
-.products__wrapper::-webkit-scrollbar {
-  width: 8px;
-  background-color: transparent;
-}
-
-.products__wrapper::-webkit-scrollbar-thumb {
-  width: 100%;
-  background-color: #ccc;
-  border-radius: 50px;
-  border: 2px solid #fff;
-}
-
 .title__wrapper {
   width: 100%;
   height: auto;
@@ -198,6 +186,18 @@
   width: 100%;
   height: auto;
   overflow: auto;
+}
+
+.cart__wrapper::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+.cart__wrapper::-webkit-scrollbar-thumb {
+  width: 100%;
+  background-color: #ccc;
+  border-radius: 50px;
+  border: 2px solid #fff;
 }
 
 .product__card {

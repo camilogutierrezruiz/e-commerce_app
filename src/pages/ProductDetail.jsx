@@ -102,7 +102,10 @@ const ProductDetail = () => {
             />
           </section>
           <ButtonBase
-            ButtonOnClick={addProductToCart}
+            ButtonOnClick={() => {
+              addProductToCart();
+              setQuantity(1);
+            }}
             ButtonWrapperClassName={ProductDetailStyles.description__cta_wrapper}
             ButtonClassName={ProductDetailStyles.description__cta}
             ButtonText={'Add to cart'}

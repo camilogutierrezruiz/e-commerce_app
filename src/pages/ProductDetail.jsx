@@ -81,35 +81,47 @@ const ProductDetail = () => {
           </div>
         </section>
         <div className={ProductDetailStyles.product__description}>
-          <div className={ProductDetailStyles.description}>
+          <section className={ProductDetailStyles.description}>
             <h1 className={ProductDetailStyles.description__productname}>{productDetail?.title}</h1>
             <p className={ProductDetailStyles.paragraph}>{productDetail?.description}</p>
-          </div>
-          <h2 className={ProductDetailStyles.price}>{`$${productDetail?.price}`}</h2>
-          <section>
+          </section>
+
+          <section className={ProductDetailStyles.second__section}>
+            <section className={ProductDetailStyles.price_counter__wrapper}>
+              <h2 className={ProductDetailStyles.price}>{`$${productDetail?.price}`}</h2>
+              <section className={ProductDetailStyles.counter__wrapper}>
+                <ButtonBase
+                  ButtonWrapperClassName={ProductDetailStyles.counter_button__wrapper}
+                  ButtonClassName={ProductDetailStyles.counter__button}
+                  ButtonOnClick={() => {
+                    setQuantity(quantity - 1);
+                  }}
+                  ButtonText={<i className="fas fa-chevron-left"></i>}
+                />
+                <div className={ProductDetailStyles.counter__quantity}>
+                  <p>{quantity}</p>
+                </div>
+                <ButtonBase
+                  ButtonWrapperClassName={ProductDetailStyles.counter_button__wrapper}
+                  ButtonClassName={ProductDetailStyles.counter__button}
+                  ButtonOnClick={() => {
+                    setQuantity(quantity + 1);
+                  }}
+                  ButtonText={<i className="fas fa-chevron-right"></i>}
+                />
+              </section>
+            </section>
             <ButtonBase
               ButtonOnClick={() => {
-                setQuantity(quantity - 1);
+                addProductToCart();
+                setQuantity(1);
               }}
-              ButtonText={'-'}
-            />
-            <div><p>{quantity}</p></div>
-            <ButtonBase
-              ButtonOnClick={() => {
-                setQuantity(quantity + 1);
-              }}
-              ButtonText={'+'}
+              ButtonWrapperClassName={ProductDetailStyles.description__cta_wrapper}
+              ButtonClassName={ProductDetailStyles.description__cta}
+              ButtonText={'Add to cart'}
             />
           </section>
-          <ButtonBase
-            ButtonOnClick={() => {
-              addProductToCart();
-              setQuantity(1);
-            }}
-            ButtonWrapperClassName={ProductDetailStyles.description__cta_wrapper}
-            ButtonClassName={ProductDetailStyles.description__cta}
-            ButtonText={'Add to cart'}
-          />
+
         </div>
       </section>
 

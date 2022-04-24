@@ -150,7 +150,7 @@ export const delCartProductThunk = (id) => {
   return dispatch => {
     dispatch(setIsLoading(true));
     return axios
-      .post(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())
+      .delete(`https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`, getConfig())
       .then(() => {
         dispatch(getCartProductsThunk());
       })
@@ -180,7 +180,6 @@ export const getPurchasesThunk = () => {
 export const setPurchaseThunk = () => {
   return dispatch => {
     dispatch(setIsLoading(true));
-    console.log('funcionando');
     return axios
       .post(`https://ecommerce-api-react.herokuapp.com/api/v1/purchases`, getConfig())
       .then(() => {
